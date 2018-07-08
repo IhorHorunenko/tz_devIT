@@ -30,21 +30,45 @@
 			//echo '<pre>'.print_r(get_the_terms( 'чсмчясмчя', 'genre' )).'</pre>';
 			
 			$taxonomyes = ['actor', 'genre', 'years', 'country'];
+			$nameTaxonomyes = ['Актер', 'Жанр', 'Год', 'Страна'];
+			$russ = -1;
 			foreach($taxonomyes as $taxonoms){
 				$showTax = false;
 				$comma = 0;
+				$russ++;
 				$cur_terms = get_the_terms( $post->ID, $taxonoms);
 				foreach( $cur_terms as $cur_term){
 					$comma++;
-					echo $showTax==false?$taxonoms.': ':'', $cur_term->name, count($cur_terms)!=$comma?', ': '';
+					//echo '<span>'.$showTax==false?$nameTaxonomyes[$i].': ':''.'</span><span>'.$cur_term->name, count($cur_terms)!=$comma?', ': ''.'</span>';
+
+					if($showTax==false){
+						if($nameTaxonomyes[$russ]=='Жанр'){
+							echo '<span class="col-xl-2 col-sm-2 col-md-2"><i class="far fa-grin-beam-sweat"></i> '.$nameTaxonomyes[$russ].': '.'</span><span class="row col-2">';
+						} elseif($nameTaxonomyes[$russ]=='Страна'){
+							echo '<span class="col-xl-2 col-sm-2 col-md-2"><i class="fas fa-globe-asia"></i> '.$nameTaxonomyes[$russ].': '.'</span><span class="row col-2">';
+						}else {
+							echo '<span class="col-xl-2 col-sm-2 col-md-2">'.$nameTaxonomyes[$russ].': '.'</span><span class="row col-2">';
+						}
+						
+					}
+					if(count($cur_terms)!=$comma){
+						echo $cur_term->name.', ';
+					} else {
+						echo $cur_term->name.'</span>';
+					}
+					//echo '<span>'.$cur_term->name.'</span>';
+
+					//echo $showTax==false?$nameTaxonomyes[$russ].': ':'', $cur_term->name, count($cur_terms)!=$comma?', ': '';
 					$showTax = true;
 				}
 				if(!empty(get_the_terms($post->ID, $taxonoms))){
 					echo '<br>';
 				}
+
 				//echo '<pre>'.print_r(get_the_terms($post->ID, $taxonoms),true).'</pre>';
 			}
-			echo 'Стоимость: <strong>'.types_render_field("price", array("style" => "FIELD_NAME : $ FIELD_VALUE")).'</strong> грн. <br>Дата выхода в прокат: <strong>'.types_render_field("date_films", array("style" => "FIELD_NAME : $ FIELD_VALUE")).'</strong>';
+			echo '</span>';
+			echo '<label><i class="fas fa-money-bill-alt"></i> Стоимость: '.types_render_field("price", array("style" => "FIELD_NAME : $ FIELD_VALUE")).' грн.</label><br><label><i class="fas fa-clock"></i> Дата выхода в прокат: '.types_render_field("date_films", array("style" => "FIELD_NAME : $ FIELD_VALUE")).'</label>';
 		?>
 	</div><!-- .entry-content -->
 	
