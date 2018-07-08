@@ -47,7 +47,7 @@
 			echo 'Стоимость: <strong>'.types_render_field("price", array("style" => "FIELD_NAME : $ FIELD_VALUE")).'</strong> грн. <br>Дата выхода в прокат: <strong>'.types_render_field("date_films", array("style" => "FIELD_NAME : $ FIELD_VALUE")).'</strong>';
 		?>
 	</div><!-- .entry-content -->
-
+	
 	<footer class="entry-meta">
 		<?php
 			/* translators: used between list items, there is a space after the comma */
